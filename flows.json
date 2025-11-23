@@ -1,0 +1,419 @@
+{
+  "flows": [
+    {
+      "id": "mqtt-broker-1",
+      "type": "mqtt-broker",
+      "name": "hivemq",
+      "broker": "mosquitto",
+      "port": "1883",
+      "clientid": "",
+      "usetls": false,
+      "compatmode": true
+    },
+    {
+      "id": "n1",
+      "type": "mqtt in",
+      "z": "flow1",
+      "name": "PackML State in",
+      "topic": "testLocation/DefaultArea/DefaultProductionLine/Status/StateCurrent",
+      "broker": "mqtt-broker-1",
+      "wires": [
+        [
+          "n2"
+        ]
+      ]
+    },
+    {
+      "id": "n2",
+      "type": "rbe",
+      "z": "flow1",
+      "name": "block unless value changes",
+      "wires": [
+        [
+          "n3"
+        ]
+      ]
+    },
+    {
+      "id": "n3",
+      "type": "json",
+      "z": "flow1",
+      "name": "to JSON",
+      "property": "payload",
+      "wires": [
+        [
+          "n4"
+        ]
+      ]
+    },
+    {
+      "id": "n4",
+      "type": "switch",
+      "z": "flow1",
+      "name": "state switch",
+      "property": "payload",
+      "rules": [
+        {
+          "t": "eq",
+          "v": "Stopped",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Idle",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Starting",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Execute",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Complete",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Holding",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Held",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Resetting",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Aborting",
+          "vt": "str"
+        },
+        {
+          "t": "eq",
+          "v": "Aborted",
+          "vt": "str"
+        }
+      ],
+      "wires": [
+        [
+          "f1"
+        ],
+        [
+          "f2"
+        ],
+        [
+          "f3"
+        ],
+        [
+          "f4"
+        ],
+        [
+          "f5"
+        ],
+        [
+          "f6"
+        ],
+        [
+          "f7"
+        ],
+        [
+          "f8"
+        ],
+        [
+          "f9"
+        ],
+        [
+          "f10"
+        ]
+      ]
+    },
+    {
+      "id": "f1",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 1",
+      "func": "msg.payload = {\"state\":40000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f2",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 2",
+      "func": "msg.payload = {\"state\":40000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f3",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 3",
+      "func": "msg.payload = {\"state\":90000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f4",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 4",
+      "func": "msg.payload = {\"state\":10000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f5",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 5",
+      "func": "msg.payload = {\"state\":20000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f6",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 6",
+      "func": "msg.payload = {\"state\":220000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f7",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 7",
+      "func": "msg.payload = {\"state\":20000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f8",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 8",
+      "func": "msg.payload = {\"state\":20000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f9",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 9",
+      "func": "msg.payload = {\"state\":20000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "f10",
+      "type": "function",
+      "z": "flow1",
+      "name": "map state 10",
+      "func": "msg.payload = {\"state\":20000, \"timestamp_ms\":Date.now()}; return msg;",
+      "outputs": 1,
+      "wires": [
+        [
+          "mqtt-out-state"
+        ]
+      ]
+    },
+    {
+      "id": "mqtt-out-state",
+      "type": "mqtt out",
+      "z": "flow1",
+      "name": "PackML -> ia/state",
+      "topic": "ia/factoryinsight/Aachen/testAsset/state",
+      "broker": "mqtt-broker-1"
+    },
+    {
+      "id": "speed-in",
+      "type": "mqtt in",
+      "z": "flow1",
+      "name": "CurMachSpeed in",
+      "topic": "testLocation/DefaultArea/DefaultProductionLine/Status/CurMachSpeed",
+      "broker": "mqtt-broker-1",
+      "wires": [
+        [
+          "speed-json"
+        ]
+      ]
+    },
+    {
+      "id": "speed-json",
+      "type": "json",
+      "z": "flow1",
+      "name": "to JSON speed",
+      "property": "payload",
+      "wires": [
+        [
+          "speed-func"
+        ]
+      ]
+    },
+    {
+      "id": "speed-func",
+      "type": "function",
+      "z": "flow1",
+      "name": "speed -> percentage",
+      "func": "msg.payload = {\"timestamp_ms\":Date.now(), \"CurrentState\": parseFloat(msg.payload/102)}; return msg;",
+      "wires": [
+        [
+          "speed-out"
+        ]
+      ]
+    },
+    {
+      "id": "speed-out",
+      "type": "mqtt out",
+      "z": "flow1",
+      "name": "publish processValue",
+      "topic": "ia/factoryinsight/aachen/maschine/processValue",
+      "broker": "mqtt-broker-1"
+    },
+    {
+      "id": "count-in-total",
+      "type": "mqtt in",
+      "z": "flow1",
+      "name": "ProdProcessedCount in",
+      "topic": "testLocation/DefaultArea/DefaultProductionLine/Admin/ProdProcessedCount/0/Count",
+      "broker": "mqtt-broker-1",
+      "wires": [
+        [
+          "count-json-total"
+        ]
+      ]
+    },
+    {
+      "id": "count-json-total",
+      "type": "json",
+      "z": "flow1",
+      "name": "to JSON total",
+      "property": "payload",
+      "wires": [
+        [
+          "count-f1"
+        ]
+      ]
+    },
+    {
+      "id": "count-in-def",
+      "type": "mqtt in",
+      "z": "flow1",
+      "name": "ProdDefectiveCount in",
+      "topic": "testLocation/DefaultArea/DefaultProductionLine/Admin/ProdDefectiveCount/0/Count",
+      "broker": "mqtt-broker-1",
+      "wires": [
+        [
+          "count-json-def"
+        ]
+      ]
+    },
+    {
+      "id": "count-json-def",
+      "type": "json",
+      "z": "flow1",
+      "name": "to JSON def",
+      "property": "payload",
+      "wires": [
+        [
+          "count-f2"
+        ]
+      ]
+    },
+    {
+      "id": "count-f1",
+      "type": "function",
+      "z": "flow1",
+      "name": "count processed (f1)",
+      "func": "context.set(\"current\", 0);\ncontext.set(\"previous\", 0);\n\n// On message handler\ncontext.set(\"previous\", context.get(\"current\"));\ncontext.set(\"current\", msg.payload);\nmsg.payload = { \"count\": parseInt(context.get(\"current\") - context.get(\"previous\")) };\nreturn msg;",
+      "wires": [
+        [
+          "count-merge"
+        ]
+      ]
+    },
+    {
+      "id": "count-f2",
+      "type": "function",
+      "z": "flow1",
+      "name": "count scrap (f2)",
+      "func": "context.set(\"scrapcurrent\", 0);\ncontext.set(\"scrapprevious\", 0);\n\n// On message\ncontext.set(\"scrapprevious\", context.get(\"scrapcurrent\"));\ncontext.set(\"scrapcurrent\", msg.payload);\nmsg.payload = { \"scrap\": parseInt(context.get(\"scrapcurrent\") - context.get(\"scrapprevious\")) };\nreturn msg;",
+      "wires": [
+        [
+          "count-merge"
+        ]
+      ]
+    },
+    {
+      "id": "count-merge",
+      "type": "function",
+      "z": "flow1",
+      "name": "combine count/scrap (f3)",
+      "func": "msg.payload = { \"timestamp_ms\": Date.now(), \"count\": parseInt(msg.payload.count ? msg.payload.count : 0), \"scrap\": parseInt(msg.payload.scrap ? msg.payload.scrap : 0) };\nmsg.topic = \"ia/factoryinsight/aachen/mach/count\";\nreturn msg;",
+      "wires": [
+        [
+          "count-out"
+        ]
+      ]
+    },
+    {
+      "id": "count-out",
+      "type": "mqtt out",
+      "z": "flow1",
+      "name": "publish counts",
+      "topic": "ia/factoryinsight/aachen/mach/count",
+      "broker": "mqtt-broker-1"
+    }
+  ],
+  "configs": []
+}
